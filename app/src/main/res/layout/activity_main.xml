@@ -69,7 +69,7 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/divide"
+            android:id="@+id/operator_div"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -109,7 +109,7 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/multiply"
+            android:id="@+id/operator_mult"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -149,7 +149,7 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/substract"
+            android:id="@+id/operator_min"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -173,7 +173,7 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/separator"
+            android:id="@+id/decimal_separator"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -181,7 +181,7 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/add"
+            android:id="@+id/operator_plus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
