@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Calculator calculator = new Calculator();
+    DisplayManager displayManager = new DisplayManager();
     boolean replace;
 
     @Override
@@ -209,13 +210,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void appendElementDisplay(TextView textView, String string) {
         String text = textView.getText().toString();
-        text += string;
+        String newText = text+string;
+        if(correctInput(newText)){
+            text = newText;
+        }
         textView.setText(text);
     }
 
     public void appendElementDisplay(TextView textView, int integer) {
         String text = textView.getText().toString();
-        text += String.valueOf(integer);
+        String newText = text+String.valueOf(integer);
+        if(correctInput(newText)){
+            text = newText;
+        }
         textView.setText(text);
     }
 
@@ -242,5 +249,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             appendElementDisplay(textView, integer);
         }
+    }
+
+    public boolean correctInput(String input){
+        return input.matches("-?[0-9]{1,}\\.?[0-9]*");
     }
 }
