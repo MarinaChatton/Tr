@@ -13,7 +13,7 @@ public class Calculator {
         minus,
         multiply,
         divide,
-        none;
+        none
     }
      double value1 = 0;
      double value2 = 0;

@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="darkgray">#333</color>
+    <color name="orange">#FF6600</color>
+    <color name="gold">#FF9900</color>
+    <color name="lightgray">#1111</color>
+    <color name="bottlegreen">#284D00</color>
+    <color name="digitalyellow">#C6FF1A</color>
+    <color name="oldgold">#996600</color>
 </resources>

@@ -8,4 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--accent buttons-->
+    <style name="accent_button" parent="android:style/Widget.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/accent_button</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">6dp</item>
+
+    </style>
+
+    <!--default buttons-->
+    <style name="default_button" parent="android:style/Widget.Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/default_button</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">6dp</item>
+    </style>
+
+    <!--accent rounded buttons-->
+    <style name="round_accent_button" parent="android:style/Widget.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/round_accent_button</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">6dp</item>
+    </style>
+
 </resources>
