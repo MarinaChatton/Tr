@@ -1,8 +1,5 @@
 package com.chatton.marina.calculator;
 
-import android.util.Log;
-import android.widget.TextView;
-
 /**
  * Created by Marina on 16/11/2016.
  */
