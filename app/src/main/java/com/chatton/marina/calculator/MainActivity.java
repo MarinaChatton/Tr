@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Calculator calculator = new Calculator();
-    DisplayManager displayManager = new DisplayManager();
     boolean replace;
 
     @Override
@@ -51,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
             Calculator.Operator operator = Calculator.Operator.plus;
             @Override
             public void onClick(View v) {
-                calculator.setValue(display.getText().toString());
-                double result = calculator.calculate(operator);
+                double result = calculator.calculate(operator,display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -63,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
             Calculator.Operator operator = Calculator.Operator.minus;
             @Override
             public void onClick(View v) {
-                calculator.setValue(display.getText().toString());
-                double result = calculator.calculate(operator);
+                double result = calculator.calculate(operator,display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -74,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
             Calculator.Operator operator = Calculator.Operator.divide;
             @Override
             public void onClick(View v) {
-                calculator.setValue(display.getText().toString());
-                double result = calculator.calculate(operator);
+                double result = calculator.calculate(operator,display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -85,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
             Calculator.Operator operator = Calculator.Operator.multiply;
             @Override
             public void onClick(View v) {
-                calculator.setValue(display.getText().toString());
-                double result = calculator.calculate(operator);
+                double result = calculator.calculate(operator,display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -96,8 +91,7 @@ public class MainActivity extends AppCompatActivity {
             Calculator.Operator operator = Calculator.Operator.none;
             @Override
             public void onClick(View v) {
-                calculator.setValue(display.getText().toString());
-                double result = calculator.calculate(operator);
+                double result = calculator.calculate(operator,display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }

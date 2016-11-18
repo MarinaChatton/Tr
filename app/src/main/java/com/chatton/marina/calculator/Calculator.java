@@ -15,47 +15,33 @@ public class Calculator {
         divide,
         none
     }
-     double value1 = 0;
-     double value2 = 0;
+     double value = 0;
      Operator operator = Operator.none;
 
     public void reset(){
-        value1 = 0;
-        value2 = 0;
+        value = 0;
         operator = Operator.none;
     }
 
-    public void setValue(String stringValue){
-        double value = Double.parseDouble(stringValue);
-        if(operator == Operator.none){
-            value1 = value;
-        }else{
-            value2 = value;
-        }
-
-    }
-
-    public double calculate(Operator operator){
-        double result = value1;
+    public double calculate(Operator operator, String stringValue){
+        double value2 = Double.parseDouble(stringValue);
         switch (this.operator){
             case plus:
-                result = value1+value2;
+                value+=value2;
                 break;
             case minus:
-                result = value1-value2;
+                value-=value2;
                 break;
             case multiply:
-                result = value1*value2;
+                value*=value2;
                 break;
             case divide:
-                result = value1/value2;
+                value/=value2;
                 break;
             case none:
-                result = value1;
+                value=value2;
         }
         this.operator = operator;
-        value1 = result;
-        value2 = 0;
-        return result;
+        return value;
     }
 }
