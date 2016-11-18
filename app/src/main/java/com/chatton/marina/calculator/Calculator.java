@@ -8,38 +8,39 @@ import android.widget.TextView;
 
 public class Calculator {
 
-    public enum Operator{
+    public enum Operator {
         plus,
         minus,
         multiply,
         divide,
         none
     }
-     double value = 0;
-     Operator operator = Operator.none;
 
-    public void reset(){
+    private double value = 0;
+    private Operator operator = Operator.none;
+
+    public void reset() {
         value = 0;
         operator = Operator.none;
     }
 
-    public double calculate(Operator operator, String stringValue){
+    public double calculate(Operator operator, String stringValue) {
         double value2 = Double.parseDouble(stringValue);
-        switch (this.operator){
+        switch (this.operator) {
             case plus:
-                value+=value2;
+                value += value2;
                 break;
             case minus:
-                value-=value2;
+                value -= value2;
                 break;
             case multiply:
-                value*=value2;
+                value *= value2;
                 break;
             case divide:
-                value/=value2;
+                value /= value2;
                 break;
             case none:
-                value=value2;
+                value = value2;
         }
         this.operator = operator;
         return value;

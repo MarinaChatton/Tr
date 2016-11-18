@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Calculator calculator = new Calculator();
-    boolean replace;
+    private boolean replace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
         operatorPlus.setOnClickListener(new View.OnClickListener() {
             Calculator.Operator operator = Calculator.Operator.plus;
+
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator,display.getText().toString());
+                double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
         });
 
         operatorMin.setOnClickListener(new View.OnClickListener() {
-            String symbol = "-";
             Calculator.Operator operator = Calculator.Operator.minus;
+
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator,display.getText().toString());
+                double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -69,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         operatorDiv.setOnClickListener(new View.OnClickListener() {
             Calculator.Operator operator = Calculator.Operator.divide;
+
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator,display.getText().toString());
+                double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -79,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
         operatorMult.setOnClickListener(new View.OnClickListener() {
             Calculator.Operator operator = Calculator.Operator.multiply;
+
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator,display.getText().toString());
+                double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -89,9 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
         equal.setOnClickListener(new View.OnClickListener() {
             Calculator.Operator operator = Calculator.Operator.none;
+
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator,display.getText().toString());
+                double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         decimalSeparator.setOnClickListener(new View.OnClickListener() {
             String symbol = ".";
+
             @Override
             public void onClick(View v) {
                 appendElementDisplay(display, symbol);
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         num0.setOnClickListener(new View.OnClickListener() {
             int value = 0;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -117,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         num1.setOnClickListener(new View.OnClickListener() {
             int value = 1;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -126,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         num2.setOnClickListener(new View.OnClickListener() {
             int value = 2;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -135,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         num3.setOnClickListener(new View.OnClickListener() {
             int value = 3;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -144,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         num4.setOnClickListener(new View.OnClickListener() {
             int value = 4;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -153,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         num5.setOnClickListener(new View.OnClickListener() {
             int value = 5;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -162,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         num6.setOnClickListener(new View.OnClickListener() {
             int value = 6;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -171,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
         num7.setOnClickListener(new View.OnClickListener() {
             int value = 7;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -180,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
         num8.setOnClickListener(new View.OnClickListener() {
             int value = 8;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -189,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
         num9.setOnClickListener(new View.OnClickListener() {
             int value = 9;
+
             @Override
             public void onClick(View v) {
                 updateDisplay(display, value);
@@ -199,13 +214,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void resetDisplay(TextView textView) {
         textView.setText("0");
-        replace = true;
     }
 
     public void appendElementDisplay(TextView textView, String string) {
         String text = textView.getText().toString();
-        String newText = text+string;
-        if(correctInput(newText)){
+        String newText = text + string;
+        if (correctInput(newText)) {
             text = newText;
         }
         textView.setText(text);
@@ -213,8 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void appendElementDisplay(TextView textView, int integer) {
         String text = textView.getText().toString();
-        String newText = text+String.valueOf(integer);
-        if(correctInput(newText)){
+        String newText = text + integer;
+        if (correctInput(newText)) {
             text = newText;
         }
         textView.setText(text);
@@ -224,15 +238,11 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(String.valueOf(integer));
     }
 
-    public void replaceDisplay(TextView textView, String symbol){
-        textView.setText(symbol);
-    }
-
     public void replaceDisplay(TextView textView, double num) {
-        int numInt = (int)num;
-        if(num-numInt==0){
+        int numInt = (int) num;
+        if (num - numInt == 0) {
             textView.setText(String.valueOf(numInt));
-        }else{
+        } else {
             textView.setText(String.valueOf(num));
         }
     }
@@ -245,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean correctInput(String input){
-        return input.matches("-?[0-9]{1,}\\.?[0-9]*");
+    public boolean correctInput(String input) {
+        return input.matches("[0-9]{1,}\\.?[0-9]*");
     }
 }
