@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        replace = true;
+
         final TextView display = (TextView) findViewById(R.id.display);
+
         Button clear = (Button) findViewById(R.id.clear);
         Button operatorPlus = (Button) findViewById(R.id.operator_plus);
         Button operatorMin = (Button) findViewById(R.id.operator_min);
@@ -24,18 +27,18 @@ public class MainActivity extends AppCompatActivity {
         Button operatorMult = (Button) findViewById(R.id.operator_mult);
         Button equal = (Button) findViewById(R.id.equal);
         Button decimalSeparator = (Button) findViewById(R.id.decimal_separator);
-        Button num0 = (Button) findViewById(R.id.num0);
-        Button num1 = (Button) findViewById(R.id.num1);
-        Button num2 = (Button) findViewById(R.id.num2);
-        Button num3 = (Button) findViewById(R.id.num3);
-        Button num4 = (Button) findViewById(R.id.num4);
-        Button num5 = (Button) findViewById(R.id.num5);
-        Button num6 = (Button) findViewById(R.id.num6);
-        Button num7 = (Button) findViewById(R.id.num7);
-        Button num8 = (Button) findViewById(R.id.num8);
-        Button num9 = (Button) findViewById(R.id.num9);
-
-        replace = true;
+        //digit buttons:
+        int[] idList = {R.id.num0,R.id.num1,R.id.num2,R.id.num3,R.id.num4,R.id.num5,R.id.num6,R.id.num7,R.id.num8,R.id.num9};
+        for(int i = 0; i<idList.length; i++){
+            final Button button = (Button)findViewById(idList[i]);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateDisplay(display, button.getText().toString());
+                    replace = false;
+                }
+            });
+        }
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.calculate(operator, display.getText().toString());
                 replaceDisplay(display, result);
                 replace = true;
             }
@@ -111,105 +114,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        num0.setOnClickListener(new View.OnClickListener() {
-            int value = 0;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num1.setOnClickListener(new View.OnClickListener() {
-            int value = 1;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num2.setOnClickListener(new View.OnClickListener() {
-            int value = 2;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num3.setOnClickListener(new View.OnClickListener() {
-            int value = 3;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num4.setOnClickListener(new View.OnClickListener() {
-            int value = 4;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num5.setOnClickListener(new View.OnClickListener() {
-            int value = 5;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num6.setOnClickListener(new View.OnClickListener() {
-            int value = 6;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num7.setOnClickListener(new View.OnClickListener() {
-            int value = 7;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num8.setOnClickListener(new View.OnClickListener() {
-            int value = 8;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
-
-        num9.setOnClickListener(new View.OnClickListener() {
-            int value = 9;
-
-            @Override
-            public void onClick(View v) {
-                updateDisplay(display, value);
-                replace = false;
-            }
-        });
     }
 
     public void resetDisplay(TextView textView) {
@@ -225,33 +129,28 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(text);
     }
 
-    public void appendElementDisplay(TextView textView, int integer) {
-        String text = textView.getText().toString();
-        String newText = text + integer;
-        if (correctInput(newText)) {
-            text = newText;
-        }
-        textView.setText(text);
-    }
-
-    public void replaceDisplay(TextView textView, int integer) {
-        textView.setText(String.valueOf(integer));
-    }
-
-    public void replaceDisplay(TextView textView, double num) {
-        int numInt = (int) num;
-        if (num - numInt == 0) {
-            textView.setText(String.valueOf(numInt));
-        } else {
-            textView.setText(String.valueOf(num));
+    public void replaceDisplay(TextView textView, Double num) {
+        if(num==null) {
+            textView.setText("Error");
+        }else{
+            int numInt = (int) num.doubleValue();
+            if (num - numInt == 0) {
+                textView.setText(String.valueOf(numInt));
+            } else {
+                textView.setText(String.valueOf(num));
+            }
         }
     }
 
-    public void updateDisplay(TextView textView, int integer) {
+    public void replaceDisplay(TextView textView, String string) {
+        textView.setText(string);
+    }
+
+    public void updateDisplay(TextView textView, String string) {
         if (replace) {
-            replaceDisplay(textView, integer);
+            replaceDisplay(textView, string);
         } else {
-            appendElementDisplay(textView, integer);
+            appendElementDisplay(textView, string);
         }
     }
 
