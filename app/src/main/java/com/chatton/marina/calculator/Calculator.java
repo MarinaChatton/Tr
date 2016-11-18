@@ -6,14 +6,6 @@ package com.chatton.marina.calculator;
 
 public class Calculator {
 
-    public enum Operator {
-        plus,
-        minus,
-        multiply,
-        divide,
-        none
-    }
-
     private double value = 0;
     private Operator operator = Operator.none;
 

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         operatorPlus.setOnClickListener(new View.OnClickListener() {
-            Calculator.Operator operator = Calculator.Operator.plus;
+            Operator operator = Operator.plus;
 
             @Override
             public void onClick(View v) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         operatorMin.setOnClickListener(new View.OnClickListener() {
-            Calculator.Operator operator = Calculator.Operator.minus;
+            Operator operator = Operator.minus;
 
             @Override
             public void onClick(View v) {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         operatorDiv.setOnClickListener(new View.OnClickListener() {
-            Calculator.Operator operator = Calculator.Operator.divide;
+            Operator operator = Operator.divide;
 
             @Override
             public void onClick(View v) {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         operatorMult.setOnClickListener(new View.OnClickListener() {
-            Calculator.Operator operator = Calculator.Operator.multiply;
+            Operator operator = Operator.multiply;
 
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         equal.setOnClickListener(new View.OnClickListener() {
-            Calculator.Operator operator = Calculator.Operator.none;
+            Operator operator = Operator.none;
 
             @Override
             public void onClick(View v) {
