@@ -14,23 +14,23 @@ public class Calculator {
         operator = Operator.none;
     }
 
-    public double add(double value2){
-        return  value+value2;
+    public double add(double value2) {
+        return value + value2;
     }
 
-    public double substract(double value2){
-        return value-value2;
+    public double substract(double value2) {
+        return value - value2;
     }
 
-    public double multiply(double value2){
-        return value*value2;
+    public double multiply(double value2) {
+        return value * value2;
     }
 
-    public Double divide(double value2){
-        if(value2==0){
+    public Double divide(double value2) {
+        if (value2 == 0) {
             return null;
-        }else{
-            return value/value2;
+        } else {
+            return value / value2;
         }
     }
 
@@ -53,16 +53,20 @@ public class Calculator {
                     break;
                 case none:
                     result = value2;
+                    break;
+                default:
+                    result = null;
+                    break;
             }
         }
         return result;
     }
 
-    public Double getResult(Operator operator, String stringValue){
+    public Double getResult(Operator operator, String stringValue) {
         Double result = calculate(stringValue);
-        if(result==null){
+        if (result == null) {
             reset();
-        }else{
+        } else {
             value = result;
             this.operator = operator;
         }

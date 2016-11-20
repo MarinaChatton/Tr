@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,107 +23,99 @@ public class MainActivity extends AppCompatActivity {
 
         display = (TextView) findViewById(R.id.display);
 
-        //todo void initButtons(View view)
-        Button clear = (Button) findViewById(R.id.clear);
-        Button operatorPlus = (Button) findViewById(R.id.operator_plus);
-        Button operatorMin = (Button) findViewById(R.id.operator_min);
-        Button operatorDiv = (Button) findViewById(R.id.operator_div);
-        Button operatorMult = (Button) findViewById(R.id.operator_mult);
-        Button equal = (Button) findViewById(R.id.equal);
-        Button decimalSeparator = (Button) findViewById(R.id.decimal_separator);
-        //digit buttons:
-        int[] idList = {R.id.num0, R.id.num1, R.id.num2, R.id.num3, R.id.num4, R.id.num5, R.id.num6, R.id.num7, R.id.num8, R.id.num9};
+        initButtons();
+    }
+
+    public void initButtons() {
+        int[] idList = {
+                R.id.num0,
+                R.id.num1,
+                R.id.num2,
+                R.id.num3,
+                R.id.num4,
+                R.id.num5,
+                R.id.num6,
+                R.id.num7,
+                R.id.num8,
+                R.id.num9,
+                R.id.decimal_separator,
+                R.id.clear,
+                R.id.equal,
+                R.id.operator_plus,
+                R.id.operator_min,
+                R.id.operator_mult,
+                R.id.operator_div
+        };
+
         for (int id : idList) {
             final Button button = (Button) findViewById(id);
-            //button.setOnClickListener(this); //si initButtons()
-            //view.setOnClickListener(this); //si initButtons(view)
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateDisplay(button.getText().toString());
-                    replace = false;
+                    String tag = button.getTag().toString();
+                    switch (tag) {
+                        case "num_key":
+                            numKeyOnClick(button);
+                            break;
+                        case "operator":
+                            operatorOnClick(button);
+                            break;
+                        case "decimal_separator":
+                            decimalSeparatorOnClick();
+                            break;
+                        case "clear":
+                            clearOnClick();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             });
         }
-
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculator.reset();
-                resetDisplay();
-                replace = true;
-            }
-        });
-
-        operatorPlus.setOnClickListener(new View.OnClickListener() {
-            Operator operator = Operator.plus;
-
-            @Override
-            public void onClick(View v) {
-                Double result = calculator.getResult(operator, display.getText().toString());
-                replaceDisplay(result);
-                replace = true;
-            }
-        });
-
-        operatorMin.setOnClickListener(new View.OnClickListener() {
-            Operator operator = Operator.minus;
-
-            @Override
-            public void onClick(View v) {
-                Double result = calculator.getResult(operator, display.getText().toString());
-                replaceDisplay(result);
-                replace = true;
-            }
-        });
-
-        operatorDiv.setOnClickListener(new View.OnClickListener() {
-            Operator operator = Operator.divide;
-
-            @Override
-            public void onClick(View v) {
-                Double result = calculator.getResult(operator, display.getText().toString());
-                replaceDisplay(result);
-                replace = true;
-            }
-        });
-
-        operatorMult.setOnClickListener(new View.OnClickListener() {
-            Operator operator = Operator.multiply;
-
-            @Override
-            public void onClick(View v) {
-                Double result = calculator.getResult(operator, display.getText().toString());
-                replaceDisplay(result);
-                replace = true;
-            }
-        });
-
-        equal.setOnClickListener(new View.OnClickListener() {
-            Operator operator = Operator.none;
-
-            @Override
-            public void onClick(View v) {
-                Double result = calculator.getResult(operator, display.getText().toString());
-                replaceDisplay(result);
-                replace = true;
-            }
-        });
-
-        decimalSeparator.setOnClickListener(new View.OnClickListener() {
-            String symbol = ".";
-
-            @Override
-            public void onClick(View v) {
-                appendElementDisplay(symbol);
-                replace = false;
-            }
-        });
-
     }
 
-    public void resetDisplay() {
+    public void clearOnClick() {
+        calculator.reset();
         display.setText("0");
+        replace = true;
+    }
+
+    public void numKeyOnClick(Button button) {
+        updateDisplay(button.getText().toString());
+        replace = false;
+    }
+
+    public void decimalSeparatorOnClick() {
+        appendElementDisplay(".");
+        replace = false;
+    }
+
+    public void operatorOnClick(Button button) {
+        int id = button.getId();
+        Operator operator;
+        switch (id) {
+            case R.id.equal:
+                operator = Operator.none;
+                break;
+            case R.id.operator_plus:
+                operator = Operator.plus;
+                break;
+            case R.id.operator_min:
+                operator = Operator.minus;
+                break;
+            case R.id.operator_mult:
+                operator = Operator.multiply;
+                break;
+            case R.id.operator_div:
+                operator = Operator.divide;
+                break;
+            default:
+                operator = Operator.none;
+                break;
+        }
+        Double result = calculator.getResult(operator, display.getText().toString());
+        replaceDisplay(String.valueOf(result));//String.valueOf(null)=> "null"
+        replace = true;
     }
 
     public void appendElementDisplay(String string) {
@@ -136,32 +127,24 @@ public class MainActivity extends AppCompatActivity {
         display.setText(text);
     }
 
-    public void replaceDisplay(Double num) {
-        if (num == null) {
-            display.setText("Error");
+    public void replaceDisplay(String string) {
+        String newDisplay;
+        if (string.equals("null")) {
+            newDisplay = "Error";
         } else {
-//            //todo : replace with tokenizer
-//            ////todo pass num as string
-//            StringTokenizer tokenizer = new StringTokenizer(String.valueOf(num), ".");
-//            String firstToken = tokenizer.nextToken();
-//            String secondToken = tokenizer.nextToken();
-//            if(secondToken.matches("0+")){
-//                display.setText(firstToken);
-//            }else{
-//                display.setText(String.valueOf(num));
-//            }
-
-            int numInt = (int) num.doubleValue();
-            if (num - numInt == 0) {
-                display.setText(String.valueOf(numInt));
+            //keep only the integer part if the decimal part is made of zeros
+            StringTokenizer tokenizer = new StringTokenizer(string, ".");
+            ArrayList<String> tokens = new ArrayList<>();
+            while (tokenizer.hasMoreTokens()) {
+                tokens.add(tokenizer.nextToken());
+            }
+            if (tokens.size() == 2 && tokens.get(1).matches("0+")) {
+                newDisplay = tokens.get(0);
             } else {
-                display.setText(String.valueOf(num));
+                newDisplay = string;
             }
         }
-    }
-
-    public void replaceDisplay(String string) {
-        display.setText(string);
+        display.setText(newDisplay);
     }
 
     public void updateDisplay(String string) {
