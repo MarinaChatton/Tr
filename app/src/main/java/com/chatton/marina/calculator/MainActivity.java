@@ -2,7 +2,6 @@ package com.chatton.marina.calculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,15 +11,13 @@ import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
     private Calculator calculator = new Calculator();
-    private boolean replace;
+    private static boolean replace = true;//set as static to "save" value when the acticity is destroyed by device-rotation
     private TextView display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        replace = true;
 
         display = (TextView) findViewById(R.id.display);
 

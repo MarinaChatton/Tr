@@ -6,8 +6,9 @@ package com.chatton.marina.calculator;
 
 public class Calculator {
 
-    private Double value = 0.0;
-    private Operator operator = Operator.none;
+    //attributes set as static to handle rotation-triggered new call to onCreate() and "save" the values
+    private static Double value = 0.0;
+    private static Operator operator = Operator.none;
 
     public void reset() {
         value = 0.0;
