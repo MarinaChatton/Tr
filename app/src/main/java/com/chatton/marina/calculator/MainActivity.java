@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
 public class MainActivity extends AppCompatActivity {
     private Calculator calculator = new Calculator();
     private boolean replace;
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         display = (TextView) findViewById(R.id.display);
 
+        //todo void initButtons(View view)
         Button clear = (Button) findViewById(R.id.clear);
         Button operatorPlus = (Button) findViewById(R.id.operator_plus);
         Button operatorMin = (Button) findViewById(R.id.operator_min);
@@ -29,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
         Button decimalSeparator = (Button) findViewById(R.id.decimal_separator);
         //digit buttons:
         int[] idList = {R.id.num0, R.id.num1, R.id.num2, R.id.num3, R.id.num4, R.id.num5, R.id.num6, R.id.num7, R.id.num8, R.id.num9};
-        for (int i = 0; i < idList.length; i++) {
-            final Button button = (Button) findViewById(idList[i]);
+        for (int id : idList) {
+            final Button button = (Button) findViewById(id);
+            //button.setOnClickListener(this); //si initButtons()
+            //view.setOnClickListener(this); //si initButtons(view)
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -54,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.getResult(operator, display.getText().toString());
                 replaceDisplay(result);
                 replace = true;
             }
@@ -65,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.getResult(operator, display.getText().toString());
                 replaceDisplay(result);
                 replace = true;
             }
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.getResult(operator, display.getText().toString());
                 replaceDisplay(result);
                 replace = true;
             }
@@ -87,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.getResult(operator, display.getText().toString());
                 replaceDisplay(result);
                 replace = true;
             }
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Double result = calculator.calculate(operator, display.getText().toString());
+                Double result = calculator.getResult(operator, display.getText().toString());
                 replaceDisplay(result);
                 replace = true;
             }
@@ -133,6 +140,17 @@ public class MainActivity extends AppCompatActivity {
         if (num == null) {
             display.setText("Error");
         } else {
+//            //todo : replace with tokenizer
+//            ////todo pass num as string
+//            StringTokenizer tokenizer = new StringTokenizer(String.valueOf(num), ".");
+//            String firstToken = tokenizer.nextToken();
+//            String secondToken = tokenizer.nextToken();
+//            if(secondToken.matches("0+")){
+//                display.setText(firstToken);
+//            }else{
+//                display.setText(String.valueOf(num));
+//            }
+
             int numInt = (int) num.doubleValue();
             if (num - numInt == 0) {
                 display.setText(String.valueOf(numInt));

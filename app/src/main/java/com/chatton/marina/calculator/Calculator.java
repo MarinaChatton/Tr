@@ -6,46 +6,66 @@ package com.chatton.marina.calculator;
 
 public class Calculator {
 
-    private double value = 0;
+    private Double value = 0.0;
     private Operator operator = Operator.none;
 
-    public Double incorrectValue() {
-        reset();
-        return null;
-    }
-
     public void reset() {
-        value = 0;
+        value = 0.0;
         operator = Operator.none;
     }
 
-    public Double calculate(Operator operator, String stringValue) {
+    public double add(double value2){
+        return  value+value2;
+    }
+
+    public double substract(double value2){
+        return value-value2;
+    }
+
+    public double multiply(double value2){
+        return value*value2;
+    }
+
+    public Double divide(double value2){
+        if(value2==0){
+            return null;
+        }else{
+            return value/value2;
+        }
+    }
+
+    public Double calculate(String stringValue) {
+        Double result = null;
         if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
-            Double value2 = Double.parseDouble(stringValue);
+            double value2 = Double.parseDouble(stringValue);
             switch (this.operator) {
                 case plus:
-                    value += value2;
+                    result = add(value2);
                     break;
                 case minus:
-                    value -= value2;
+                    result = substract(value2);
                     break;
                 case multiply:
-                    value *= value2;
+                    result = multiply(value2);
                     break;
                 case divide:
-                    if (value2 != 0) {
-                        value /= value2;
-                    } else {
-                        return incorrectValue();
-                    }
+                    result = divide(value2);
                     break;
                 case none:
-                    value = value2;
+                    result = value2;
             }
-            this.operator = operator;
-            return value;
-        } else {
-            return incorrectValue();
         }
+        return result;
+    }
+
+    public Double getResult(Operator operator, String stringValue){
+        Double result = calculate(stringValue);
+        if(result==null){
+            reset();
+        }else{
+            value = result;
+            this.operator = operator;
+        }
+        return result;
     }
 }
