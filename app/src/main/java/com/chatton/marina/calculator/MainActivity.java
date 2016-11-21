@@ -9,7 +9,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity {
+import hugo.weaving.DebugLog;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Calculator calculator = new Calculator();
     private static boolean replace = true;//set as static to "save" value when the acticity is destroyed by device-rotation
     private TextView display;
@@ -47,28 +49,29 @@ public class MainActivity extends AppCompatActivity {
 
         for (int id : idList) {
             final Button button = (Button) findViewById(id);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String tag = button.getTag().toString();
-                    switch (tag) {
-                        case "num_key":
-                            numKeyOnClick(button);
-                            break;
-                        case "operator":
-                            operatorOnClick(button);
-                            break;
-                        case "decimal_separator":
-                            decimalSeparatorOnClick();
-                            break;
-                        case "clear":
-                            clearOnClick();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
+            button.setOnClickListener(this);
+        }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        String tag = v.getTag().toString();
+        switch (tag) {
+            case "num_key":
+                numKeyOnClick((Button)v);
+                break;
+            case "operator":
+                operatorOnClick((Button)v);
+                break;
+            case "decimal_separator":
+                decimalSeparatorOnClick();
+                break;
+            case "clear":
+                clearOnClick();
+                break;
+            default:
+                break;
         }
     }
 
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         replace = true;
     }
 
+    @DebugLog
     public void appendElementDisplay(String string) {
         String text = display.getText().toString();
         String newText = text + string;
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         display.setText(text);
     }
 
+    @DebugLog
     public void replaceDisplay(String string) {
         String newDisplay;
         if (string.equals("null")) {
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         display.setText(newDisplay);
     }
 
+    @DebugLog
     public void updateDisplay(String string) {
         if (replace) {
             replaceDisplay(string);
@@ -154,6 +160,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean correctInput(String input) {
-        return input.matches("[0-9]{1,}\\.?[0-9]*");
+        return input.matches("-?[0-9]{1,}\\.?[0-9]*");
     }
 }
