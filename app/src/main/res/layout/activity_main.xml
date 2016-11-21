@@ -19,10 +19,8 @@
         android:background="#000000"
         android:orientation="horizontal">
 
-        <!--freezesText "saves" the current displayed text when the device is rotated-->
         <TextView
             android:id="@+id/display"
-            android:freezesText="true"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"

@@ -6,13 +6,28 @@ package com.chatton.marina.calculator;
 
 public class Calculator {
 
-    //attributes set as static to handle rotation-triggered new call to onCreate() and "save" the values
-    private static Double value = 0.0;
-    private static Operator operator = Operator.none;
+    private Double value = 0.0;
+    private Operator operator = Operator.NONE;
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
 
     public void reset() {
         value = 0.0;
-        operator = Operator.none;
+        operator = Operator.NONE;
     }
 
     public double add(double value2) {
@@ -28,10 +43,10 @@ public class Calculator {
     }
 
     public Double divide(double value2) {
-        if (value2 == 0) {
-            return null;
-        } else {
+        if (value2 != 0) {
             return value / value2;
+        } else {
+            return null;
         }
     }
 
@@ -40,19 +55,19 @@ public class Calculator {
         if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
             double value2 = Double.parseDouble(stringValue);
             switch (this.operator) {
-                case plus:
+                case PLUS:
                     result = add(value2);
                     break;
-                case minus:
+                case MINUS:
                     result = substract(value2);
                     break;
-                case multiply:
+                case MULTPILY:
                     result = multiply(value2);
                     break;
-                case divide:
+                case DIVIDE:
                     result = divide(value2);
                     break;
-                case none:
+                case NONE:
                     result = value2;
                     break;
                 default:

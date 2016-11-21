@@ -1,3 +1,6 @@
+plugins {
+    id "org.sonarqube" version "2.1"
+}
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 
@@ -16,6 +19,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            testCoverageEnabled true
         }
     }
 }

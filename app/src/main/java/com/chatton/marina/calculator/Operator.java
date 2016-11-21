@@ -5,9 +5,9 @@ package com.chatton.marina.calculator;
  */
 
 public enum Operator {
-    plus,
-    minus,
-    multiply,
-    divide,
-    none
+    PLUS,
+    MINUS,
+    MULTPILY,
+    DIVIDE,
+    NONE
 }

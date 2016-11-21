@@ -13,7 +13,7 @@ import hugo.weaving.DebugLog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Calculator calculator = new Calculator();
-    private static boolean replace = true;//set as static to "save" value when the acticity is destroyed by device-rotation
+    private boolean replace = true;
     private TextView display;
 
     @Override
@@ -24,6 +24,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         display = (TextView) findViewById(R.id.display);
 
         initButtons();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putBoolean("replace", replace);
+        savedInstanceState.putString("display", display.getText().toString());
+        savedInstanceState.putDouble("value", calculator.getValue());
+        savedInstanceState.putSerializable("operator", calculator.getOperator());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        replace = savedInstanceState.getBoolean("replace");
+        display.setText(savedInstanceState.getString("display"));
+        calculator.setValue(savedInstanceState.getDouble("value"));
+        calculator.setOperator((Operator) savedInstanceState.getSerializable("operator"));
     }
 
     public void initButtons() {
@@ -96,22 +116,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Operator operator;
         switch (id) {
             case R.id.equal:
-                operator = Operator.none;
+                operator = Operator.NONE;
                 break;
             case R.id.operator_plus:
-                operator = Operator.plus;
+                operator = Operator.PLUS;
                 break;
             case R.id.operator_min:
-                operator = Operator.minus;
+                operator = Operator.MINUS;
                 break;
             case R.id.operator_mult:
-                operator = Operator.multiply;
+                operator = Operator.MULTPILY;
                 break;
             case R.id.operator_div:
-                operator = Operator.divide;
+                operator = Operator.DIVIDE;
                 break;
             default:
-                operator = Operator.none;
+                operator = Operator.NONE;
                 break;
         }
         Double result = calculator.getResult(operator, display.getText().toString());
@@ -132,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @DebugLog
     public void replaceDisplay(String string) {
         String newDisplay;
-        if (string.equals("null")) {
+        if ("null".equals(string)) {
             newDisplay = "Error";
         } else {
             //keep only the integer part if the decimal part is made of zeros

@@ -45,11 +45,31 @@ public class ExampleInstrumentedTest {
     public void shouldDisplaySubstractionResultOnClickPlus(){
         onView(withId(R.id.num1)).perform(click());
         onView(withId(R.id.num5)).perform(click());
+        onView(withId(R.id.decimal_separator)).perform(click());
+        onView(withId(R.id.num5)).perform(click());
         onView(withId(R.id.operator_min)).perform(click());
+        onView(withId(R.id.num5)).perform(click());
+        onView(withId(R.id.decimal_separator)).perform(click());
         onView(withId(R.id.num5)).perform(click());
         onView(withId(R.id.operator_plus)).perform(click());
         //check displayed result
         onView(withId(R.id.display)).check(matches(withText("10")));
+    }
+
+    @Test
+    public void shouldResetDisplay(){
+        onView(withId(R.id.num5)).perform(click());
+        onView(withId(R.id.clear)).perform(click());
+        onView(withId(R.id.display)).check(matches(withText("0")));
+    }
+
+    @Test
+    public void shouldDisplayError(){
+        onView(withId(R.id.num1)).perform(click());
+        onView(withId(R.id.operator_div)).perform(click());
+        onView(withId(R.id.num0)).perform(click());
+        onView(withId(R.id.operator_mult)).perform(click());
+        onView(withId(R.id.display)).check(matches(withText("Error")));
     }
 
     @Test
