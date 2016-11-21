@@ -29,15 +29,43 @@ public class ExampleUnitTest {
 
     @Test
     public void shouldDoAdditionWhenEqual() {
-        calculator.getResult(Operator.plus, "5");
-        Double result = calculator.getResult(Operator.none, "4");
+        calculator.getResult(Operator.PLUS, "5");
+        Double result = calculator.getResult(Operator.NONE, "4");
         assert(result.equals(9.0));
     }
 
     @Test
     public void shouldDoSubstractionWhenPlus(){
-        calculator.getResult(Operator.minus, "15");
-        Double result = calculator.getResult(Operator.plus, "5");
+        calculator.getResult(Operator.MINUS, "15");
+        Double result = calculator.getResult(Operator.PLUS, "5");
         assert(result.equals(10.0));
+    }
+
+    @Test
+    public void shouldDoMultiplicationWhenMinus(){
+        calculator.getResult(Operator.MULTPILY, "10.2");
+        Double result = calculator.getResult(Operator.MINUS, "2");
+        assert(result.equals(20.4));
+    }
+
+    @Test
+    public void shouldReturnNullWhenDivideByZero(){
+        calculator.getResult(Operator.DIVIDE, "12");
+        Double result = calculator.getResult(Operator.NONE, "0");
+        assert(result==null);
+    }
+
+    @Test
+    public void shouldReturnOperatorMultiply(){
+        calculator.setOperator(Operator.MULTPILY);
+        Operator operator = calculator.getOperator();
+        assert(operator.equals(Operator.MULTPILY));
+    }
+
+    @Test
+    public void shouldReturnValue(){
+        calculator.setValue(15.5);
+        double value = calculator.getValue();
+        assert(value==15.5);
     }
 }
