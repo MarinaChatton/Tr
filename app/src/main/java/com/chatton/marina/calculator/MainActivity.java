@@ -1,7 +1,9 @@
 package com.chatton.marina.calculator;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,10 +13,11 @@ import java.util.StringTokenizer;
 
 import hugo.weaving.DebugLog;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener{
     private Calculator calculator = new Calculator();
     private boolean replace = true;
     private TextView display;
+    private StandardFragment standardFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         display = (TextView) findViewById(R.id.display);
+
+        standardFragment = (StandardFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_standard);
+        standardFragment.setOnStandardButtonClickListener(MainActivity.this);
 
         initButtons();
     }
@@ -48,23 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initButtons() {
         int[] idList = {
-                R.id.num0,
-                R.id.num1,
-                R.id.num2,
-                R.id.num3,
-                R.id.num4,
-                R.id.num5,
-                R.id.num6,
-                R.id.num7,
-                R.id.num8,
-                R.id.num9,
-                R.id.decimal_separator,
                 R.id.clear,
-                R.id.equal,
-                R.id.operator_plus,
-                R.id.operator_min,
-                R.id.operator_mult,
-                R.id.operator_div
+                R.id.equal
         };
 
         for (int id : idList) {
@@ -181,5 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public boolean correctInput(String input) {
         return input.matches("-?[0-9]{1,}\\.?[0-9]*");
+    }
+
+    @Override
+    public void onStandardButtonClick(View v) {
+        onClick(v);
     }
 }
