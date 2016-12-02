@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:layout_weight="3"
+            android:layout_weight="7"
             android:background="@color/bottlegreen"
             android:gravity="right|center_vertical"
             android:paddingRight="10dp"
@@ -43,12 +43,27 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/fragment_standard"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:name="com.chatton.marina.calculator.StandardFragment"/>
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/fragment_scientific"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:name="com.chatton.marina.calculator.ScientificFragment"/>
+
+        <fragment
+            android:id="@+id/fragment_standard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:name="com.chatton.marina.calculator.StandardFragment"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/equal"

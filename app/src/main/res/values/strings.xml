@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Calculator</string>
+    <string name="app_name" translatable="false">Calculator</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tag_num_key" translatable="false">num_key</string>
+    <string name="tag_decimal_separator" translatable="false">decimal_separator</string>
+    <string name="tag_operator" translatable="false">operator</string>
+    <string name="tag_func" translatable="false">func</string>
+    <string name="tag_clear" translatable="false">clear</string>
 </resources>

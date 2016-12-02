@@ -68,21 +68,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String tag = v.getTag().toString();
-        switch (tag) {
-            case "num_key":
-                numKeyOnClick((Button)v);
-                break;
-            case "operator":
-                operatorOnClick((Button)v);
-                break;
-            case "decimal_separator":
-                decimalSeparatorOnClick();
-                break;
-            case "clear":
-                clearOnClick();
-                break;
-            default:
-                break;
+        if(tag.equals(getResources().getString(R.string.tag_num_key))){
+            numKeyOnClick((Button)v);
+        }else if(tag.equals(getResources().getString(R.string.tag_operator))){
+            operatorOnClick((Button)v);
+        }else if(tag.equals(getResources().getString(R.string.tag_decimal_separator))){
+            decimalSeparatorOnClick();
+        }else if(tag.equals(getResources().getString(R.string.tag_clear))){
+            clearOnClick();
         }
     }
 
