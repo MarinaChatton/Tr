@@ -3,7 +3,7 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="8dip" />
-            <gradient android:angle="90" android:centerColor="@color/white" android:endColor="@color/lightgray" android:startColor="@color/lightgray" />
+            <solid android:color="@color/white" />
         </shape>
     </item>
     <item android:state_focused="true">
@@ -15,7 +15,7 @@
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="8dip" />
-            <gradient android:angle="90" android:centerColor="@color/white" android:endColor="@color/lightgray" android:startColor="@color/lightgray" />
+            <solid android:color="@color/white"/>
         </shape>
     </item>
 </selector>
