@@ -1,0 +1,179 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/num7"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/num8"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/num9"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="9" />
+
+            <Button
+                android:id="@+id/operator_div"
+                style="@style/accent_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="operator"
+                android:text="/" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/num4"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/num5"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/num6"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="6" />
+
+            <Button
+                android:id="@+id/operator_mult"
+                style="@style/accent_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="operator"
+                android:text="x" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/num1"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/num2"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/num3"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="num_key"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/operator_min"
+                style="@style/accent_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="operator"
+                android:text="-" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/num0"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:tag="num_key"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/decimal_separator"
+                style="@style/default_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="decimal_separator"
+                android:text="." />
+
+            <Button
+                android:id="@+id/operator_plus"
+                style="@style/accent_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:tag="operator"
+                android:text="+" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
