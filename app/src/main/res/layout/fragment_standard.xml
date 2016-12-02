@@ -15,7 +15,7 @@
 
             <Button
                 android:id="@+id/num7"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -24,7 +24,7 @@
 
             <Button
                 android:id="@+id/num8"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -33,7 +33,7 @@
 
             <Button
                 android:id="@+id/num9"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -42,7 +42,7 @@
 
             <Button
                 android:id="@+id/operator_div"
-                style="@style/accent_button"
+                style="@style/accent_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -59,7 +59,7 @@
 
             <Button
                 android:id="@+id/num4"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/num5"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -77,7 +77,7 @@
 
             <Button
                 android:id="@+id/num6"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -86,7 +86,7 @@
 
             <Button
                 android:id="@+id/operator_mult"
-                style="@style/accent_button"
+                style="@style/accent_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -103,7 +103,7 @@
 
             <Button
                 android:id="@+id/num1"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -112,7 +112,7 @@
 
             <Button
                 android:id="@+id/num2"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -121,7 +121,7 @@
 
             <Button
                 android:id="@+id/num3"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -130,7 +130,7 @@
 
             <Button
                 android:id="@+id/operator_min"
-                style="@style/accent_button"
+                style="@style/accent_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -147,7 +147,7 @@
 
             <Button
                 android:id="@+id/num0"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -156,7 +156,7 @@
 
             <Button
                 android:id="@+id/decimal_separator"
-                style="@style/default_button"
+                style="@style/default_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -165,7 +165,7 @@
 
             <Button
                 android:id="@+id/operator_plus"
-                style="@style/accent_button"
+                style="@style/accent_button_with_margins"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

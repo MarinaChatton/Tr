@@ -23,23 +23,32 @@
             android:id="@+id/display"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_weight="3"
             android:background="@color/bottlegreen"
             android:gravity="right|center_vertical"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
+            android:layout_margin="10dp"
             android:text="0"
             android:textColor="@color/digitalyellow" />
 
-        <Button
-            android:id="@+id/clear"
-            style="@style/round_accent_button"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:tag="@string/tag_clear"
-            android:text="C" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="4dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/clear"
+                style="@style/accent_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="@string/tag_clear"
+                android:text="C" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -52,7 +61,7 @@
 
     <Button
         android:id="@+id/equal"
-        style="@style/accent_button"
+        style="@style/accent_button_with_margins"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

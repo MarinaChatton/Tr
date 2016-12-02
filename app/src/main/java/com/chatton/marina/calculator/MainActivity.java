@@ -7,17 +7,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import hugo.weaving.DebugLog;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener{
     private Calculator calculator = new Calculator();
     private boolean replace = true;
     private TextView display;
     private StandardFragment standardFragment;
+    private ScientificFragment scientificFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         standardFragment = (StandardFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_standard);
         standardFragment.setOnStandardButtonClickListener(MainActivity.this);
+
+        scientificFragment = (ScientificFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_scientific);
+        scientificFragment.setOnScientificButtonClickListener(MainActivity.this);
 
         initButtons();
     }
@@ -170,5 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStandardButtonClick(View v) {
         onClick(v);
+    }
+
+    @Override
+    public void onScientificButtonClick(View v) {
+        Toast.makeText(this,((Button)v).getText().toString(),Toast.LENGTH_SHORT).show();
     }
 }

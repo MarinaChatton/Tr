@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--accent buttons-->
@@ -13,22 +14,16 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/accent_button</item>
         <item name="android:textAlignment">center</item>
+    </style>
+    <!--accent buttons with margins-->
+    <style name="accent_button_with_margins" parent="accent_button">
         <item name="android:layout_margin">6dp</item>
-
     </style>
 
-    <!--default buttons-->
-    <style name="default_button" parent="android:style/Widget.Button">
+    <!--default buttons with margin-->
+    <style name="default_button_with_margins" parent="android:style/Widget.Button">
         <item name="android:textColor">@color/black</item>
         <item name="android:background">@drawable/default_button</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:layout_margin">6dp</item>
-    </style>
-
-    <!--accent rounded buttons-->
-    <style name="round_accent_button" parent="android:style/Widget.Button">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/round_accent_button</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_margin">6dp</item>
     </style>
