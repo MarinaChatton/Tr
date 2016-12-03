@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         standardFragment.setOnStandardButtonClickListener(MainActivity.this);
 
         scientificFragment = (ScientificFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_scientific);
-        scientificFragment.setOnScientificButtonClickListener(MainActivity.this);
+        if(scientificFragment!=null) {
+            scientificFragment.setOnScientificButtonClickListener(MainActivity.this);
+        }
 
         initButtons();
     }
