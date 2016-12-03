@@ -49,7 +49,7 @@ public class Calculator {
             return null;
         }
     }
-    
+
     public double sin(double value2){
         return Math.sin(value2);
     }
@@ -171,6 +171,37 @@ public class Calculator {
         } else {
             value = result;
             this.operator = operator;
+        }
+        return result;
+    }
+
+    public Double func(Function function, String stringValue) {
+        Double result = null;
+        if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
+            double value2 = Double.parseDouble(stringValue);
+            switch (function) {
+                case SIN:
+                    result = sin(value2);
+                    break;
+                case COS:
+                    result = cos(value2);
+                    break;
+                case TAN:
+                    result = tan(value2);
+                    break;
+                case ASIN:
+                    result = asin(value2);
+                    break;
+                case ACOS:
+                    result = acos(value2);
+                    break;
+                case ATAN:
+                    result = atan(value2);
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
         }
         return result;
     }

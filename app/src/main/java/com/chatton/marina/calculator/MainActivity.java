@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 
 import hugo.weaving.DebugLog;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener {
     private Calculator calculator = new Calculator();
     private boolean replace = true;
     private TextView display;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         standardFragment.setOnStandardButtonClickListener(MainActivity.this);
 
         scientificFragment = (ScientificFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_scientific);
-        if(scientificFragment!=null) {
+        if (scientificFragment != null) {
             scientificFragment.setOnScientificButtonClickListener(MainActivity.this);
         }
 
@@ -75,14 +75,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String tag = v.getTag().toString();
-        if(tag.equals(getResources().getString(R.string.tag_num_key))){
-            numKeyOnClick((Button)v);
-        }else if(tag.equals(getResources().getString(R.string.tag_operator))){
-            operatorOnClick((Button)v);
-        }else if(tag.equals(getResources().getString(R.string.tag_decimal_separator))){
+        if (tag.equals(getResources().getString(R.string.tag_num_key))) {
+            numKeyOnClick((Button) v);
+        } else if (tag.equals(getResources().getString(R.string.tag_operator))) {
+            operatorOnClick((Button) v);
+        } else if (tag.equals(getResources().getString(R.string.tag_decimal_separator))) {
             decimalSeparatorOnClick();
-        }else if(tag.equals(getResources().getString(R.string.tag_clear))){
+        } else if (tag.equals(getResources().getString(R.string.tag_clear))) {
             clearOnClick();
+        } else if (tag.equals(R.string.tag_func)) {
+            funcOnClick((Button) v);
         }
     }
 
@@ -127,6 +129,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Double result = calculator.getResult(operator, display.getText().toString());
         replaceDisplay(String.valueOf(result));//String.valueOf(null)=> "null"
+        replace = true;
+    }
+
+    public void funcOnClick(Button button) {
+        int id = button.getId();
+        Function function;
+        switch (id) {
+            case R.id.func_sin:
+                function = Function.SIN;
+                break;
+            case R.id.func_cos:
+                function = Function.COS;
+                break;
+            case R.id.func_tan:
+                function = Function.TAN;
+                break;
+            case R.id.func_asin:
+                function = Function.ASIN;
+                break;
+            case R.id.func_acos:
+                function = Function.ACOS;
+                break;
+            case R.id.func_atan:
+                function = Function.ATAN;
+                break;
+            default:
+                function = null;
+                break;
+        }
+        Double newValue = calculator.func(function, display.getText().toString());
+        replaceDisplay(String.valueOf(newValue));
         replace = true;
     }
 
@@ -181,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onScientificButtonClick(View v) {
-        Toast.makeText(this,((Button)v).getText().toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ((Button) v).getText().toString(), Toast.LENGTH_SHORT).show();
+        funcOnClick((Button)v);
     }
 }
