@@ -154,6 +154,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.func_atan:
                 function = Function.ATAN;
                 break;
+            case R.id.func_exp:
+                function = Function.EXP;
+                break;
+            case R.id.func_ten_pow:
+                function = Function.TENPOW;
+                break;
+            case R.id.func_inv:
+                function = Function.INV;
+                break;
+            case R.id.func_ln:
+                function = Function.LN;
+                break;
+            case R.id.func_log:
+                function = Function.LOG;
+                break;
+            case R.id.func_sqrt:
+                function = Function.SQRT;
+                break;
+            case R.id.func_sign:
+                function = Function.SIGN;
+                break;
+            case R.id.func_pow2:
+                function = Function.POW2;
+                break;
+            case R.id.func_pow3:
+                function = Function.POW3;
+                break;
             default:
                 function = null;
                 break;
@@ -214,7 +241,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onScientificButtonClick(View v) {
-        Toast.makeText(this, ((Button) v).getText().toString(), Toast.LENGTH_SHORT).show();
-        funcOnClick((Button)v);
+        if(v.getId()==R.id.func_pow) {
+            Toast.makeText(this, ((Button) v).getText().toString(), Toast.LENGTH_SHORT).show();
+        }else {
+            funcOnClick((Button) v);
+        }
     }
 }

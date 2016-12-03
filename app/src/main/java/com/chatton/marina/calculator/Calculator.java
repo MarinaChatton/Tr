@@ -198,6 +198,33 @@ public class Calculator {
                 case ATAN:
                     result = atan(value2);
                     break;
+                case EXP:
+                    result = exp(value2);
+                    break;
+                case TENPOW:
+                    result = tenPow(value2);
+                    break;
+                case INV:
+                    result = inv(value2);
+                    break;
+                case LN:
+                    result = ln(value2);
+                    break;
+                case LOG:
+                    result = log(value2);
+                    break;
+                case SQRT:
+                    result = sqrt(value2);
+                    break;
+                case SIGN:
+                    result = sign(value2);
+                    break;
+                case POW2:
+                    result = pow2(value2);
+                    break;
+                case POW3:
+                    result = pow3(value2);
+                    break;
                 default:
                     result = null;
                     break;

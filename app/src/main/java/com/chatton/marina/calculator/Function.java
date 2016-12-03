@@ -11,5 +11,13 @@ public enum Function {
     ASIN,
     ACOS,
     ATAN,
-    NONE
+    EXP,
+    TENPOW,
+    INV,
+    LN,
+    LOG,
+    SQRT,
+    POW2,
+    POW3,
+    SIGN
 }
