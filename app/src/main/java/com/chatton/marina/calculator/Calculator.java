@@ -49,6 +49,92 @@ public class Calculator {
             return null;
         }
     }
+    
+    public double sin(double value2){
+        return Math.sin(value2);
+    }
+
+    public double cos(double value2){
+        return Math.cos(value2);
+    }
+
+    public double tan(double value2){
+        return Math.tan(value2);
+    }
+
+    public Double asin(double value2){
+        if(Math.abs(value2)>1){
+            return null;
+        }
+        return Math.asin(value2);
+    }
+
+    public Double acos(double value2){
+        if(Math.abs(value2)>1){
+            return null;
+        }
+        return Math.acos(value2);
+    }
+
+    public double atan(double value2){
+        return Math.atan(value2);
+    }
+
+    public double exp(double value2){
+        return Math.exp(value2);
+    }
+
+    public Double ln(double value2){
+        if(value2<=0){
+            return null;
+        }
+        return Math.log(value2);
+    }
+
+    public Double log(double value2){
+        if(value2<=0){
+            return null;
+        }
+        return Math.log10(value2);
+    }
+
+    public Double sqrt(double value2){
+        if(value2<0){
+            return null;
+        }
+        return Math.sqrt(value2);
+    }
+
+    public double pow2(double value2){
+        return Math.pow(value2, 2);
+    }
+
+    public double pow3(double value2){
+        return Math.pow(value2, 3);
+    }
+
+    public Double inv(double value2){
+        if(value2==0){
+            return null;
+        }
+        return 1/value2;
+    }
+
+    public double tenPow(double value2){
+        return Math.pow(10, value2);
+    }
+
+    public double pow(double value1, double value2){
+        return Math.pow(value1, value2);
+    }
+
+    public double sign(double value2){
+        if(value2<=0){
+            return Math.abs(value2);
+        }else{
+            return 0-value2;
+        }
+    }
 
     public Double calculate(String stringValue) {
         Double result = null;
