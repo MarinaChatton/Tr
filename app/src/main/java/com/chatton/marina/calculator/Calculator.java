@@ -1,5 +1,10 @@
 package com.chatton.marina.calculator;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import hugo.weaving.DebugLog;
+
 /**
  * Created by Marina on 16/11/2016.
  */
@@ -8,6 +13,7 @@ public class Calculator {
 
     private Double value = 0.0;
     private Operator operator = Operator.NONE;
+    private Object[] storedOperation = {0.0, Operator.NONE};
 
     public Double getValue() {
         return value;
@@ -28,23 +34,25 @@ public class Calculator {
     public void reset() {
         value = 0.0;
         operator = Operator.NONE;
+        storedOperation[0] = 0.0;
+        storedOperation[1] = Operator.NONE;
     }
 
-    public double add(double value2) {
-        return value + value2;
+    public double add(double value1, double value2) {
+        return value1 + value2;
     }
 
-    public double substract(double value2) {
-        return value - value2;
+    public double substract(double value1, double value2) {
+        return value1 - value2;
     }
 
-    public double multiply(double value2) {
-        return value * value2;
+    public double multiply(double value1, double value2) {
+        return value1 * value2;
     }
 
-    public Double divide(double value2) {
+    public Double divide(double value1, double value2) {
         if (value2 != 0) {
-            return value / value2;
+            return value1 / value2;
         } else {
             return null;
         }
@@ -136,36 +144,55 @@ public class Calculator {
         }
     }
 
-    public Double calculate(String stringValue) {
-        Double result = null;
-        if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
-            double value2 = Double.parseDouble(stringValue);
-            switch (this.operator) {
-                case PLUS:
-                    result = add(value2);
-                    break;
-                case MINUS:
-                    result = substract(value2);
-                    break;
-                case MULTPILY:
-                    result = multiply(value2);
-                    break;
-                case DIVIDE:
-                    result = divide(value2);
-                    break;
-                case NONE:
-                    result = value2;
-                    break;
-                default:
-                    result = null;
-                    break;
-            }
+    public Double calculate(double value1, Operator operator, double value2) {
+        Double result;
+        switch (operator) {
+            case PLUS:
+                result = add(value1,value2);
+                break;
+            case MINUS:
+                result = substract(value1,value2);
+                break;
+            case MULTPILY:
+                result = multiply(value1,value2);
+                break;
+            case DIVIDE:
+                result = divide(value1,value2);
+                break;
+            case POW:
+                result = pow(value1, value2);
+                break;
+            case NONE:
+                result = value2;
+                break;
+            default:
+                result = null;
+                break;
         }
         return result;
     }
 
     public Double getResult(Operator operator, String stringValue) {
-        Double result = calculate(stringValue);
+        Double result = null;
+        //calculation
+        if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
+            double value2 = Double.parseDouble(stringValue);
+            if(operator==Operator.POW && this.operator!=Operator.NONE && this.operator!=Operator.POW){
+                storedOperation[0] = value;
+                storedOperation[1] = this.operator;
+                result = value2;
+            }else {
+                Log.e("val op val2", String.valueOf(value)+String.valueOf(this.operator)+String.valueOf(value2));
+
+                value2 = calculate(value, this.operator, value2);
+                result = calculate((double)storedOperation[0], (Operator)storedOperation[1], value2);
+                Log.e("val_bis op_bis val2_bis", String.valueOf((double)storedOperation[0])+String.valueOf(storedOperation[1])+String.valueOf(value2)+"="+String.valueOf(result));
+
+                storedOperation[0] = 0.0;
+                storedOperation[1] = Operator.NONE;
+            }
+        }
+        //prepare next operation
         if (result == null) {
             reset();
         } else {

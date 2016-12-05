@@ -9,5 +9,6 @@ public enum Operator {
     MINUS,
     MULTPILY,
     DIVIDE,
+    POW,
     NONE
 }

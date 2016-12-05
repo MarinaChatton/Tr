@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             decimalSeparatorOnClick();
         } else if (tag.equals(getResources().getString(R.string.tag_clear))) {
             clearOnClick();
-        } else if (tag.equals(R.string.tag_func)) {
+        } else if (tag.equals(getResources().getString(R.string.tag_func))) {
             funcOnClick((Button) v);
         }
     }
@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.operator_div:
                 operator = Operator.DIVIDE;
+                break;
+            case R.id.func_pow:
+                operator = Operator.POW;
                 break;
             default:
                 operator = Operator.NONE;
@@ -190,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         replace = true;
     }
 
-    @DebugLog
     public void appendElementDisplay(String string) {
         String text = display.getText().toString();
         String newText = text + string;
@@ -200,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         display.setText(text);
     }
 
-    @DebugLog
     public void replaceDisplay(String string) {
         String newDisplay;
         if ("null".equals(string)) {
@@ -221,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         display.setText(newDisplay);
     }
 
-    @DebugLog
     public void updateDisplay(String string) {
         if (replace) {
             replaceDisplay(string);
@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onScientificButtonClick(View v) {
         if(v.getId()==R.id.func_pow) {
-            Toast.makeText(this, ((Button) v).getText().toString(), Toast.LENGTH_SHORT).show();
-        }else {
+            operatorOnClick((Button)v);
+         }else {
             funcOnClick((Button) v);
         }
     }
