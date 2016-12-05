@@ -5,12 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener, OnErrorListener {
     private Calculator calculator = new Calculator();
     private boolean replace = true;
     private TextView display;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        calculator.setOnErrorListener(MainActivity.this);
 
         display = (TextView) findViewById(R.id.display);
 
@@ -271,5 +274,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onScientificButtonClick(View v) {
         onClick(v);
+    }
+
+    @Override
+    public void displayError(Error error) {
+        String errorMessage;
+        switch (error){
+            case DIVIDE_BY_ZERO:
+                errorMessage = "You cannot divide by zero";
+                break;
+            case GREATER_THAN_ABS_ONE:
+                errorMessage = "The absolute value must be less than one";
+                break;
+            case NEGATIVE:
+                errorMessage = "The value must be positive or null";
+                break;
+            case NEGATIVE_OR_NULL:
+                errorMessage = "The value must be greater than zero";
+                break;
+            default:
+                errorMessage = "Unknown error";
+                break;
+        }
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

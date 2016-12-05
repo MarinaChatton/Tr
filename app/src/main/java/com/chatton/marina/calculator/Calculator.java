@@ -5,12 +5,16 @@ package com.chatton.marina.calculator;
  */
 
 public class Calculator {
+    private OnErrorListener onErrorListener;
 
     private Double value1 = 0.0;
     private Double value2 = 0.0;
     private Operator operator = Operator.NONE;
-
     private Object[] storedOperation = {0.0, Operator.NONE};
+
+    public void setOnErrorListener(OnErrorListener onErrorListener) {
+        this.onErrorListener = onErrorListener;
+    }
 
     public Double getValue1() {
         return value1;
@@ -68,6 +72,7 @@ public class Calculator {
         if (value2 != 0) {
             return value1 / value2;
         } else {
+            onErrorListener.displayError(Error.DIVIDE_BY_ZERO);
             return null;
         }
     }
@@ -86,6 +91,7 @@ public class Calculator {
 
     public Double asin(double value2) {
         if (Math.abs(value2) > 1) {
+            onErrorListener.displayError(Error.GREATER_THAN_ABS_ONE);
             return null;
         }
         return Math.asin(value2);
@@ -93,6 +99,7 @@ public class Calculator {
 
     public Double acos(double value2) {
         if (Math.abs(value2) > 1) {
+            onErrorListener.displayError(Error.GREATER_THAN_ABS_ONE);
             return null;
         }
         return Math.acos(value2);
@@ -108,6 +115,7 @@ public class Calculator {
 
     public Double ln(double value2) {
         if (value2 <= 0) {
+            onErrorListener.displayError(Error.NEGATIVE_OR_NULL);
             return null;
         }
         return Math.log(value2);
@@ -115,6 +123,7 @@ public class Calculator {
 
     public Double log(double value2) {
         if (value2 <= 0) {
+            onErrorListener.displayError(Error.NEGATIVE_OR_NULL);
             return null;
         }
         return Math.log10(value2);
@@ -122,6 +131,7 @@ public class Calculator {
 
     public Double sqrt(double value2) {
         if (value2 < 0) {
+            onErrorListener.displayError(Error.NEGATIVE);
             return null;
         }
         return Math.sqrt(value2);
@@ -137,6 +147,7 @@ public class Calculator {
 
     public Double inv(double value2) {
         if (value2 == 0) {
+            onErrorListener.displayError(Error.DIVIDE_BY_ZERO);
             return null;
         }
         return 1 / value2;
