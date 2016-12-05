@@ -65,8 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         savedInstanceState.putDouble(VALUE1, calculator.getValue1());
         savedInstanceState.putDouble(VALUE2, calculator.getValue2());
         savedInstanceState.putSerializable(OPERATOR, calculator.getOperator());
-        savedInstanceState.putSerializable(SAVED_OPERATOR, (Serializable) calculator.getStoredOperation()[1]);
-        savedInstanceState.putSerializable(SAVED_VALUE, (Serializable) calculator.getStoredOperation()[0]);
+        if(calculator.getStoredOperation()!=null) {
+            savedInstanceState.putSerializable(SAVED_OPERATOR, (Serializable) calculator.getStoredOperation()[1]);
+            savedInstanceState.putSerializable(SAVED_VALUE, (Serializable) calculator.getStoredOperation()[0]);
+        }else{
+            savedInstanceState.putSerializable(SAVED_OPERATOR, null);
+            savedInstanceState.putSerializable(SAVED_VALUE, null);
+        }
     }
 
     @Override
@@ -78,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calculator.setValue1(savedInstanceState.getDouble(VALUE1));
         calculator.setValue2(savedInstanceState.getDouble(VALUE2));
         calculator.setOperator((Operator) savedInstanceState.getSerializable(OPERATOR));
-        calculator.setStoredOperation(new Object[]{savedInstanceState.getSerializable(SAVED_VALUE), savedInstanceState.getSerializable(SAVED_OPERATOR)});
+        if(savedInstanceState.getSerializable(SAVED_VALUE)!=null && savedInstanceState.getSerializable(SAVED_OPERATOR)!=null) {
+            calculator.setStoredOperation(new Object[]{savedInstanceState.getSerializable(SAVED_VALUE), savedInstanceState.getSerializable(SAVED_OPERATOR)});
+        }
     }
 
     public void initButtons() {

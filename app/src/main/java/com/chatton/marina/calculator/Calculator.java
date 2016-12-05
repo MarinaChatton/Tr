@@ -10,7 +10,7 @@ public class Calculator {
     private Double value1 = 0.0;
     private Double value2 = 0.0;
     private Operator operator = Operator.NONE;
-    private Object[] storedOperation = {0.0, Operator.NONE};
+    private Object[] storedOperation = null;
 
     public void setOnErrorListener(OnErrorListener onErrorListener) {
         this.onErrorListener = onErrorListener;
@@ -52,8 +52,7 @@ public class Calculator {
         value1 = 0.0;
         value2 = 0.0;
         operator = Operator.NONE;
-        storedOperation[0] = 0.0;
-        storedOperation[1] = Operator.NONE;
+        storedOperation = null;
     }
 
     public double add(double value1, double value2) {
@@ -209,10 +208,12 @@ public class Calculator {
             result = value2;
         } else {
             value2 = calculate(value1, this.operator, value2);
-            result = calculate((double) storedOperation[0], (Operator) storedOperation[1], value2);
-
-            storedOperation[0] = 0.0;
-            storedOperation[1] = Operator.NONE;
+            if(storedOperation!=null) {
+                result = calculate((double) storedOperation[0], (Operator) storedOperation[1], value2);
+            }else{
+                result = value2;
+            }
+            storedOperation = null;
         }
         //prepare next operation
         if (result == null) {
