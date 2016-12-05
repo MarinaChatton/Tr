@@ -106,8 +106,8 @@
                 android:layout_weight="1"
                 android:text="1/x"/>
             <Button
-                android:id="@+id/func_pow"
-                android:tag="@string/tag_func"
+                android:id="@+id/operator_pow"
+                android:tag="@string/tag_operator"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

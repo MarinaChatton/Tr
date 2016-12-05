@@ -1,26 +1,31 @@
 package com.chatton.marina.calculator;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import hugo.weaving.DebugLog;
-
 /**
  * Created by Marina on 16/11/2016.
  */
 
 public class Calculator {
 
-    private Double value = 0.0;
+    private Double value1 = 0.0;
+    private Double value2 = 0.0;
     private Operator operator = Operator.NONE;
+
     private Object[] storedOperation = {0.0, Operator.NONE};
 
-    public Double getValue() {
-        return value;
+    public Double getValue1() {
+        return value1;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setValue1(Double value1) {
+        this.value1 = value1;
+    }
+
+    public Double getValue2() {
+        return value2;
+    }
+
+    public void setValue2(Double value2) {
+        this.value2 = value2;
     }
 
     public Operator getOperator() {
@@ -31,8 +36,17 @@ public class Calculator {
         this.operator = operator;
     }
 
+    public Object[] getStoredOperation() {
+        return storedOperation;
+    }
+
+    public void setStoredOperation(Object[] storedOperation) {
+        this.storedOperation = storedOperation;
+    }
+
     public void reset() {
-        value = 0.0;
+        value1 = 0.0;
+        value2 = 0.0;
         operator = Operator.NONE;
         storedOperation[0] = 0.0;
         storedOperation[1] = Operator.NONE;
@@ -58,154 +72,150 @@ public class Calculator {
         }
     }
 
-    public double sin(double value2){
+    public double sin(double value2) {
         return Math.sin(value2);
     }
 
-    public double cos(double value2){
+    public double cos(double value2) {
         return Math.cos(value2);
     }
 
-    public double tan(double value2){
+    public double tan(double value2) {
         return Math.tan(value2);
     }
 
-    public Double asin(double value2){
-        if(Math.abs(value2)>1){
+    public Double asin(double value2) {
+        if (Math.abs(value2) > 1) {
             return null;
         }
         return Math.asin(value2);
     }
 
-    public Double acos(double value2){
-        if(Math.abs(value2)>1){
+    public Double acos(double value2) {
+        if (Math.abs(value2) > 1) {
             return null;
         }
         return Math.acos(value2);
     }
 
-    public double atan(double value2){
+    public double atan(double value2) {
         return Math.atan(value2);
     }
 
-    public double exp(double value2){
+    public double exp(double value2) {
         return Math.exp(value2);
     }
 
-    public Double ln(double value2){
-        if(value2<=0){
+    public Double ln(double value2) {
+        if (value2 <= 0) {
             return null;
         }
         return Math.log(value2);
     }
 
-    public Double log(double value2){
-        if(value2<=0){
+    public Double log(double value2) {
+        if (value2 <= 0) {
             return null;
         }
         return Math.log10(value2);
     }
 
-    public Double sqrt(double value2){
-        if(value2<0){
+    public Double sqrt(double value2) {
+        if (value2 < 0) {
             return null;
         }
         return Math.sqrt(value2);
     }
 
-    public double pow2(double value2){
+    public double pow2(double value2) {
         return Math.pow(value2, 2);
     }
 
-    public double pow3(double value2){
+    public double pow3(double value2) {
         return Math.pow(value2, 3);
     }
 
-    public Double inv(double value2){
-        if(value2==0){
+    public Double inv(double value2) {
+        if (value2 == 0) {
             return null;
         }
-        return 1/value2;
+        return 1 / value2;
     }
 
-    public double tenPow(double value2){
+    public double tenPow(double value2) {
         return Math.pow(10, value2);
     }
 
-    public double pow(double value1, double value2){
+    public double pow(double value1, double value2) {
         return Math.pow(value1, value2);
     }
 
-    public double sign(double value2){
-        if(value2<=0){
+    public double sign(double value2) {
+        if (value2 <= 0) {
             return Math.abs(value2);
-        }else{
-            return 0-value2;
+        } else {
+            return 0 - value2;
         }
     }
 
-    public Double calculate(double value1, Operator operator, double value2) {
-        Double result;
-        switch (operator) {
-            case PLUS:
-                result = add(value1,value2);
-                break;
-            case MINUS:
-                result = substract(value1,value2);
-                break;
-            case MULTPILY:
-                result = multiply(value1,value2);
-                break;
-            case DIVIDE:
-                result = divide(value1,value2);
-                break;
-            case POW:
-                result = pow(value1, value2);
-                break;
-            case NONE:
-                result = value2;
-                break;
-            default:
-                result = null;
-                break;
+    public Double calculate(Double value1, Operator operator, Double value2) {
+        Double result = null;
+        if (value1 != null && value2 != null) {
+            switch (operator) {
+                case PLUS:
+                    result = add(value1, value2);
+                    break;
+                case MINUS:
+                    result = substract(value1, value2);
+                    break;
+                case MULTPILY:
+                    result = multiply(value1, value2);
+                    break;
+                case DIVIDE:
+                    result = divide(value1, value2);
+                    break;
+                case POW:
+                    result = pow(value1, value2);
+                    break;
+                case NONE:
+                    result = value2;
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
         }
         return result;
     }
 
-    public Double getResult(Operator operator, String stringValue) {
-        Double result = null;
+    public Double getResult(Operator operator) {
+        Double result;
         //calculation
-        if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
-            double value2 = Double.parseDouble(stringValue);
-            if(operator==Operator.POW && this.operator!=Operator.NONE && this.operator!=Operator.POW){
-                storedOperation[0] = value;
-                storedOperation[1] = this.operator;
-                result = value2;
-            }else {
-                Log.e("val op val2", String.valueOf(value)+String.valueOf(this.operator)+String.valueOf(value2));
+        if (operator == Operator.POW && this.operator != Operator.NONE && this.operator != Operator.POW) {
+            storedOperation[0] = value1;
+            storedOperation[1] = this.operator;
 
-                value2 = calculate(value, this.operator, value2);
-                result = calculate((double)storedOperation[0], (Operator)storedOperation[1], value2);
-                Log.e("val_bis op_bis val2_bis", String.valueOf((double)storedOperation[0])+String.valueOf(storedOperation[1])+String.valueOf(value2)+"="+String.valueOf(result));
+            result = value2;
+        } else {
+            value2 = calculate(value1, this.operator, value2);
+            result = calculate((double) storedOperation[0], (Operator) storedOperation[1], value2);
 
-                storedOperation[0] = 0.0;
-                storedOperation[1] = Operator.NONE;
-            }
+            storedOperation[0] = 0.0;
+            storedOperation[1] = Operator.NONE;
         }
         //prepare next operation
         if (result == null) {
             reset();
         } else {
-            value = result;
+            value1 = result;
             this.operator = operator;
         }
         return result;
     }
 
-    public Double func(Function function, String stringValue) {
+    public Double func(Function function) {
         Double result = null;
-        if (stringValue.matches("-?[0-9]{1,}\\.?[0-9]*")) {
-            double value2 = Double.parseDouble(stringValue);
+        if (value2 != null) {
             switch (function) {
                 case SIN:
                     result = sin(value2);
@@ -256,6 +266,11 @@ public class Calculator {
                     result = null;
                     break;
             }
+        }
+        if (result == null) {
+            reset();
+        } else {
+            value2 = result;
         }
         return result;
     }

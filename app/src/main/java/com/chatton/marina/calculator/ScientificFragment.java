@@ -41,7 +41,7 @@ public class ScientificFragment extends Fragment {
                 R.id.func_exp,
                 R.id.func_ten_pow,
                 R.id.func_inv,
-                R.id.func_pow,
+                R.id.operator_pow,
                 R.id.func_ln,
                 R.id.func_log,
                 R.id.func_sqrt,

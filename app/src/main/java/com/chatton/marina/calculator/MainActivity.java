@@ -1,18 +1,14 @@
 package com.chatton.marina.calculator;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import hugo.weaving.DebugLog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStandardButtonClickListener, OnScientificButtonClickListener {
     private Calculator calculator = new Calculator();
@@ -20,6 +16,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView display;
     private StandardFragment standardFragment;
     private ScientificFragment scientificFragment;
+
+    private final static String WRONG_RESULT = "null";//String.valueOf(null)
+    private final static String DEFAULT_DISPLAY = "0";
+    private final static String ERROR_DISPLAY = "Error";
+    private final static String DECIMAL_SEPARATOR = ".";
+
+    //bundle keys
+    private final static String VALUE1 = "value1";
+    private final static String VALUE2 = "value2";
+    private final static String OPERATOR = "operator";
+    private final static String SAVED_OPERATOR = "savedOperator";
+    private final static String SAVED_VALUE = "savedValue";
+    private final static String DISPLAY = "display";
+    private final static String REPLACE = "replace";
+
+    private String getDisplay() {
+        return display.getText().toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +57,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putBoolean("replace", replace);
-        savedInstanceState.putString("display", display.getText().toString());
-        savedInstanceState.putDouble("value", calculator.getValue());
-        savedInstanceState.putSerializable("operator", calculator.getOperator());
+        savedInstanceState.putBoolean(REPLACE, replace);
+        savedInstanceState.putString(DISPLAY, display.getText().toString());
+        savedInstanceState.putDouble(VALUE1, calculator.getValue1());
+        savedInstanceState.putDouble(VALUE2, calculator.getValue2());
+        savedInstanceState.putSerializable(OPERATOR, calculator.getOperator());
+        savedInstanceState.putSerializable(SAVED_OPERATOR, (Serializable) calculator.getStoredOperation()[1]);
+        savedInstanceState.putSerializable(SAVED_VALUE, (Serializable) calculator.getStoredOperation()[0]);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        replace = savedInstanceState.getBoolean("replace");
-        display.setText(savedInstanceState.getString("display"));
-        calculator.setValue(savedInstanceState.getDouble("value"));
-        calculator.setOperator((Operator) savedInstanceState.getSerializable("operator"));
+        replace = savedInstanceState.getBoolean(REPLACE);
+        display.setText(savedInstanceState.getString(DISPLAY));
+        calculator.setValue1(savedInstanceState.getDouble(VALUE1));
+        calculator.setValue2(savedInstanceState.getDouble(VALUE2));
+        calculator.setOperator((Operator) savedInstanceState.getSerializable(OPERATOR));
+        calculator.setStoredOperation(new Object[]{savedInstanceState.getSerializable(SAVED_VALUE), savedInstanceState.getSerializable(SAVED_OPERATOR)});
     }
 
     public void initButtons() {
@@ -76,125 +95,129 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String tag = v.getTag().toString();
         if (tag.equals(getResources().getString(R.string.tag_num_key))) {
-            numKeyOnClick((Button) v);
+            numKeyOnClick(((Button) v).getText().toString());
         } else if (tag.equals(getResources().getString(R.string.tag_operator))) {
-            operatorOnClick((Button) v);
+            operatorOnClick(v.getId());
         } else if (tag.equals(getResources().getString(R.string.tag_decimal_separator))) {
             decimalSeparatorOnClick();
         } else if (tag.equals(getResources().getString(R.string.tag_clear))) {
             clearOnClick();
         } else if (tag.equals(getResources().getString(R.string.tag_func))) {
-            funcOnClick((Button) v);
+            funcOnClick(v.getId());
         }
     }
 
     public void clearOnClick() {
         calculator.reset();
-        display.setText("0");
+        display.setText(DEFAULT_DISPLAY);
         replace = true;
     }
 
-    public void numKeyOnClick(Button button) {
-        updateDisplay(button.getText().toString());
+    public void numKeyOnClick(String keyValue) {
+        updateDisplay(keyValue);
         replace = false;
     }
 
     public void decimalSeparatorOnClick() {
-        appendElementDisplay(".");
+        appendElementDisplay(DECIMAL_SEPARATOR);
         replace = false;
     }
 
-    public void operatorOnClick(Button button) {
-        int id = button.getId();
-        Operator operator;
-        switch (id) {
-            case R.id.equal:
-                operator = Operator.NONE;
-                break;
-            case R.id.operator_plus:
-                operator = Operator.PLUS;
-                break;
-            case R.id.operator_min:
-                operator = Operator.MINUS;
-                break;
-            case R.id.operator_mult:
-                operator = Operator.MULTPILY;
-                break;
-            case R.id.operator_div:
-                operator = Operator.DIVIDE;
-                break;
-            case R.id.func_pow:
-                operator = Operator.POW;
-                break;
-            default:
-                operator = Operator.NONE;
-                break;
+    public void operatorOnClick(int id) {
+        if (correctInput(getDisplay())) {
+            Operator operator;
+            switch (id) {
+                case R.id.equal:
+                    operator = Operator.NONE;
+                    break;
+                case R.id.operator_plus:
+                    operator = Operator.PLUS;
+                    break;
+                case R.id.operator_min:
+                    operator = Operator.MINUS;
+                    break;
+                case R.id.operator_mult:
+                    operator = Operator.MULTPILY;
+                    break;
+                case R.id.operator_div:
+                    operator = Operator.DIVIDE;
+                    break;
+                case R.id.operator_pow:
+                    operator = Operator.POW;
+                    break;
+                default:
+                    operator = Operator.NONE;
+                    break;
+            }
+            setValue2(getDisplay());
+            Double result = calculator.getResult(operator);
+            replaceDisplay(String.valueOf(result));
+            replace = true;
         }
-        Double result = calculator.getResult(operator, display.getText().toString());
-        replaceDisplay(String.valueOf(result));//String.valueOf(null)=> "null"
-        replace = true;
     }
 
-    public void funcOnClick(Button button) {
-        int id = button.getId();
-        Function function;
-        switch (id) {
-            case R.id.func_sin:
-                function = Function.SIN;
-                break;
-            case R.id.func_cos:
-                function = Function.COS;
-                break;
-            case R.id.func_tan:
-                function = Function.TAN;
-                break;
-            case R.id.func_asin:
-                function = Function.ASIN;
-                break;
-            case R.id.func_acos:
-                function = Function.ACOS;
-                break;
-            case R.id.func_atan:
-                function = Function.ATAN;
-                break;
-            case R.id.func_exp:
-                function = Function.EXP;
-                break;
-            case R.id.func_ten_pow:
-                function = Function.TENPOW;
-                break;
-            case R.id.func_inv:
-                function = Function.INV;
-                break;
-            case R.id.func_ln:
-                function = Function.LN;
-                break;
-            case R.id.func_log:
-                function = Function.LOG;
-                break;
-            case R.id.func_sqrt:
-                function = Function.SQRT;
-                break;
-            case R.id.func_sign:
-                function = Function.SIGN;
-                break;
-            case R.id.func_pow2:
-                function = Function.POW2;
-                break;
-            case R.id.func_pow3:
-                function = Function.POW3;
-                break;
-            default:
-                function = null;
-                break;
+    public void funcOnClick(int id) {
+        if (correctInput(getDisplay())) {
+            Function function;
+            switch (id) {
+                case R.id.func_sin:
+                    function = Function.SIN;
+                    break;
+                case R.id.func_cos:
+                    function = Function.COS;
+                    break;
+                case R.id.func_tan:
+                    function = Function.TAN;
+                    break;
+                case R.id.func_asin:
+                    function = Function.ASIN;
+                    break;
+                case R.id.func_acos:
+                    function = Function.ACOS;
+                    break;
+                case R.id.func_atan:
+                    function = Function.ATAN;
+                    break;
+                case R.id.func_exp:
+                    function = Function.EXP;
+                    break;
+                case R.id.func_ten_pow:
+                    function = Function.TENPOW;
+                    break;
+                case R.id.func_inv:
+                    function = Function.INV;
+                    break;
+                case R.id.func_ln:
+                    function = Function.LN;
+                    break;
+                case R.id.func_log:
+                    function = Function.LOG;
+                    break;
+                case R.id.func_sqrt:
+                    function = Function.SQRT;
+                    break;
+                case R.id.func_sign:
+                    function = Function.SIGN;
+                    break;
+                case R.id.func_pow2:
+                    function = Function.POW2;
+                    break;
+                case R.id.func_pow3:
+                    function = Function.POW3;
+                    break;
+                default:
+                    function = null;
+                    break;
+            }
+            setValue2(getDisplay());
+            Double newValue2 = calculator.func(function);
+            replaceDisplay(String.valueOf(newValue2));
+            replace = true;
         }
-        Double newValue = calculator.func(function, display.getText().toString());
-        replaceDisplay(String.valueOf(newValue));
-        replace = true;
     }
 
     public void appendElementDisplay(String string) {
-        String text = display.getText().toString();
+        String text = getDisplay();
         String newText = text + string;
         if (correctInput(newText)) {
             text = newText;
@@ -204,11 +227,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void replaceDisplay(String string) {
         String newDisplay;
-        if ("null".equals(string)) {
-            newDisplay = "Error";
+        if (string.equals(WRONG_RESULT)) {
+            newDisplay = ERROR_DISPLAY;
         } else {
             //keep only the integer part if the decimal part is made of zeros
-            StringTokenizer tokenizer = new StringTokenizer(string, ".");
+            StringTokenizer tokenizer = new StringTokenizer(string, DECIMAL_SEPARATOR);
             ArrayList<String> tokens = new ArrayList<>();
             while (tokenizer.hasMoreTokens()) {
                 tokens.add(tokenizer.nextToken());
@@ -234,6 +257,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return input.matches("-?[0-9]{1,}\\.?[0-9]*");
     }
 
+    public void setValue2(String displayString) {
+        if (correctInput(displayString)) {
+            calculator.setValue2(Double.parseDouble(displayString));
+        }
+    }
+
     @Override
     public void onStandardButtonClick(View v) {
         onClick(v);
@@ -241,10 +270,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onScientificButtonClick(View v) {
-        if(v.getId()==R.id.func_pow) {
-            operatorOnClick((Button)v);
-         }else {
-            funcOnClick((Button) v);
-        }
+        onClick(v);
     }
 }
