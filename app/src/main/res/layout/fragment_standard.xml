@@ -152,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:tag="@string/tag_num_key"
-                android:text="0" />
+                android:text="0"/>
 
             <Button
                 android:id="@+id/decimal_separator"

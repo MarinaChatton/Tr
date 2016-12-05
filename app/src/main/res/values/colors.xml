@@ -8,8 +8,10 @@
     <color name="darkgray">#333</color>
     <color name="orange">#FF6600</color>
     <color name="gold">#FF9900</color>
-    <color name="lightgray">#9999</color>
+    <color name="buttongray">#D7D7D7</color>
     <color name="bottlegreen">#284D00</color>
     <color name="digitalyellow">#C6FF1A</color>
     <color name="oldgold">#996600</color>
+    <color name="primaryDark">#303F9F</color>
+    <color name="primaryDarker">#263280</color>
 </resources>
